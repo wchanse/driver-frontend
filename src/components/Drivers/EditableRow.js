@@ -69,8 +69,6 @@ const EditableRow = ({
       </td>
       <td>
         <button type="submit">Save</button>
-      </td>
-      <td>
         <button type="button" onClick={() => setEditDriverId(null)}>
           Cancel
         </button>
