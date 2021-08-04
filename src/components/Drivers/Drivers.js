@@ -31,6 +31,8 @@ const Drivers = () => {
   // when editDriverId is null, no row is being edited
   const [editDriverId, setEditDriverId] = useState(null);
 
+  const [sortType, setSortType] = useState('asc');
+
   const handleAddFormChange = (event) => {
     event.preventDefault();
 
@@ -130,6 +132,7 @@ const Drivers = () => {
     const search = async () => {
       const { data } = await driverapi.get('/drivers');
       setDrivers(data);
+      console.log(data);
     };
     search();
     console.log(drivers);
