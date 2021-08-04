@@ -1,8 +1,9 @@
-import React from 'react';
+import React from "react";
+import { DriverRow } from "./style";
 
 const ReadOnlyRow = ({ driver, handleEditClick, setEditDriverId }) => {
   return (
-    <tr key={driver.id}>
+    <DriverRow key={driver.id}>
       <td>{driver.firstName}</td>
       <td>{driver.lastName}</td>
       <td>{driver.city}</td>
@@ -17,7 +18,15 @@ const ReadOnlyRow = ({ driver, handleEditClick, setEditDriverId }) => {
           Edit
         </button>
       </td>
-    </tr>
+      <td>
+        <button
+          type="button"
+          // onClick={(event) => handleEditClick(event, driver)}
+        >
+          View
+        </button>
+      </td>
+    </DriverRow>
   );
 };
 
