@@ -1,8 +1,16 @@
 import React, { useState } from "react";
-import { Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import "../style.css";
-import { DriverName, SearchBar, SearchButton, Wrapper } from "./style";
-import axios from "axios";
+import {
+  DriverInfo,
+  DriverName,
+  DriverView,
+  SearchBar,
+  SearchButton,
+  SearchRow,
+  Wrapper,
+} from "./style";
+import { Link } from "react-router-dom";
 import driverapi from "../../api/driverapi";
 
 const Search = () => {
@@ -16,7 +24,6 @@ const Search = () => {
     driverapi.get(`/drivers/${searchId}`).then((res) => {
       setDriver(res.data);
       setLoading(false);
-      console.log(driver);
     });
   };
   const search = (event) => {
@@ -34,10 +41,19 @@ const Search = () => {
         </Row>
 
         <Row>
-          {!loading ? (
-            <DriverName>
-              {driver.firstName} {driver.lastName}
-            </DriverName>
+          {!loading && driver ? (
+            <div>
+              <DriverName>
+                {driver.firstName} {driver.lastName}
+              </DriverName>
+              <SearchRow>
+                <DriverInfo>{driver.city}</DriverInfo>
+                <DriverInfo>{driver.state}</DriverInfo>
+                <Link to={`/drivers/${driver.id}`}>
+                  <DriverView>View</DriverView>
+                </Link>
+              </SearchRow>
+            </div>
           ) : null}
         </Row>
       </Container>
