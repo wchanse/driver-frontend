@@ -9,8 +9,10 @@ const defaultState = {
 const driverReducer = (state = defaultState, action) => {
   switch (action.type) {
     case "GET_DRIVERS":
-      state.drivers = action.payload;
-      return { ...state };
+      return { ...state, ...action.payload };
+
+    case "ADD_DRIVER":
+      return { ...state, ...action.payload };
 
     default:
       return state;

@@ -1,5 +1,6 @@
-import React from 'react';
-import { DriverRow } from './style';
+import React from "react";
+import { Link } from "react-router-dom";
+import { DriverRow } from "./style";
 
 const ReadOnlyRow = ({ driver, handleEditClick, setEditDriverId }) => {
   return (
@@ -16,12 +17,14 @@ const ReadOnlyRow = ({ driver, handleEditClick, setEditDriverId }) => {
         </button>
       </td>
       <td>
-        <button
-          type="button"
-          // onClick={(event) => handleEditClick(event, driver)}
-        >
-          View
-        </button>
+        <Link to={`/drivers/${driver.id}`}>
+          <button
+            type="button"
+            // onClick={(event) => handleEditClick(event, driver)}
+          >
+            View
+          </button>
+        </Link>
       </td>
     </DriverRow>
   );
