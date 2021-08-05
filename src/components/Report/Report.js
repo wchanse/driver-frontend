@@ -1,8 +1,10 @@
 import React from 'react';
 import { Container, Row } from 'react-bootstrap';
 import '../style.css';
+import { useHistory } from 'react-router-dom';
 
-const Violations = () => {
+const Report = () => {
+  const history = useHistory();
   return (
     <div className="maincontent">
       <Container>
@@ -16,4 +18,4 @@ const Violations = () => {
   );
 };
 
-export default Violations;
+export default Report;

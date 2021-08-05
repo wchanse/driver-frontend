@@ -1,9 +1,12 @@
 import React from 'react';
+import driverapi from '../../api/driverapi';
 
 const EditableRow = ({
   editFormData,
   handleEditFormChange,
   setEditDriverId,
+  handleDelete,
+  driverObj,
 }) => {
   return (
     <tr>
@@ -11,7 +14,6 @@ const EditableRow = ({
         <input
           type="text"
           name="firstName"
-          required="required"
           placeholder="Enter first name"
           value={editFormData.firstName}
           onChange={handleEditFormChange}
@@ -21,7 +23,6 @@ const EditableRow = ({
         <input
           type="text"
           name="lastName"
-          required="required"
           placeholder="Enter last name"
           value={editFormData.lastName}
           onChange={handleEditFormChange}
@@ -31,7 +32,6 @@ const EditableRow = ({
         <input
           type="text"
           name="city"
-          required="required"
           placeholder="Enter city"
           value={editFormData.city}
           onChange={handleEditFormChange}
@@ -41,7 +41,6 @@ const EditableRow = ({
         <input
           type="text"
           name="state"
-          required="required"
           placeholder="Enter state"
           value={editFormData.state}
           onChange={handleEditFormChange}
@@ -51,7 +50,6 @@ const EditableRow = ({
         <input
           type="text"
           name="zip"
-          required="required"
           placeholder="Enter zip"
           value={editFormData.zip}
           onChange={handleEditFormChange}
@@ -61,7 +59,6 @@ const EditableRow = ({
         <input
           type="text"
           name="licenseNumber"
-          required="required"
           placeholder="Enter license no."
           value={editFormData.licenseNumber}
           onChange={handleEditFormChange}
@@ -69,10 +66,8 @@ const EditableRow = ({
       </td>
       <td>
         <button type="submit">Save</button>
-        <button type="button" onClick={() => setEditDriverId(null)}>
-          Cancel
-        </button>
-        <button>Delete</button>
+        <button onClick={() => setEditDriverId(null)}>Cancel</button>
+        <button onClick={() => handleDelete(driverObj)}>Delete</button>
       </td>
     </tr>
   );
