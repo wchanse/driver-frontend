@@ -89,8 +89,9 @@ const Drivers = () => {
   // handles deletion in edit row
   const handleDelete = (driver) => {
     const deleteFromDB = async () => {
-      await driverapi.delete(`/users/${driver.id}`);
+      await driverapi.delete(`/drivers/${driver.id}`);
     };
+    deleteFromDB();
     const newDrivers = drivers.filter((d) => d.id !== driver.id);
     setDrivers(newDrivers);
   };
