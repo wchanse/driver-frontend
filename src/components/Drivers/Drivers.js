@@ -8,6 +8,7 @@ import ReadOnlyRow from './ReadOnlyRow';
 import EditableRow from './EditableRow';
 
 const Drivers = () => {
+  // for add driver modal
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -34,8 +35,6 @@ const Drivers = () => {
 
   // when editDriverId is null, no row is being edited
   const [editDriverId, setEditDriverId] = useState(null);
-
-  const [sortType, setSortType] = useState('asc');
 
   const handleAddFormChange = (event) => {
     event.preventDefault();
@@ -87,6 +86,15 @@ const Drivers = () => {
     setShow(false);
   };
 
+  // handles deletion in edit row
+  const handleDelete = (driver) => {
+    const deleteFromDB = async () => {
+      await driverapi.delete(`/users/${driver.id}`);
+    };
+    const newDrivers = drivers.filter((d) => d.id !== driver.id);
+    setDrivers(newDrivers);
+  };
+
   const handleEditFormSubmit = (event) => {
     event.preventDefault();
 
@@ -101,7 +109,7 @@ const Drivers = () => {
     };
 
     // send data
-    const postDriver = async () => {
+    const putDriver = async () => {
       const { data } = await driverapi.put(
         `/drivers/${editDriverId}`,
         updatedDriver
@@ -113,7 +121,7 @@ const Drivers = () => {
       setDrivers(newDrivers);
       setEditDriverId(null);
     };
-    postDriver();
+    putDriver();
   };
 
   const handleEditClick = (event, driver) => {
@@ -187,7 +195,6 @@ const Drivers = () => {
                           <input
                             type="text"
                             name="city"
-                            required="required"
                             placeholder="Enter city"
                             className="form-control"
                             onChange={handleAddFormChange}
@@ -195,7 +202,6 @@ const Drivers = () => {
                           <input
                             type="text"
                             name="state"
-                            required="required"
                             placeholder="Enter state"
                             className="form-control"
                             onChange={handleAddFormChange}
@@ -203,7 +209,6 @@ const Drivers = () => {
                           <input
                             type="text"
                             name="zip"
-                            required="required"
                             placeholder="Enter zip"
                             className="form-control"
                             onChange={handleAddFormChange}
@@ -211,7 +216,6 @@ const Drivers = () => {
                           <input
                             type="text"
                             name="licenseNumber"
-                            required="required"
                             placeholder="Enter license no."
                             className="form-control"
                             onChange={handleAddFormChange}
@@ -243,7 +247,7 @@ const Drivers = () => {
                     <th>Zip</th>
                     <th>License No.</th>
                     <th>Actions</th>
-                    <th>Report</th>
+                    <th>Details</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -255,6 +259,8 @@ const Drivers = () => {
                           editFormData={editFormData}
                           handleEditFormChange={handleEditFormChange}
                           setEditDriverId={setEditDriverId}
+                          handleDelete={handleDelete}
+                          driverObj={driver}
                         />
                       ) : (
                         <ReadOnlyRow
