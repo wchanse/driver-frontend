@@ -1,8 +1,15 @@
-import { SELECT_DRIVER } from './types';
+import * as types from "./types";
 
-export const selectDriver = (driver) => {
+export const selectDriver = (drivers) => {
   return {
-    type: SELECT_DRIVER,
+    type: types.GET_DRIVERS,
+    payload: drivers,
+  };
+};
+
+export const addDriver = (driver) => {
+  return {
+    type: types.ADD_DRIVER,
     payload: driver,
   };
 };
