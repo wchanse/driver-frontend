@@ -39,3 +39,10 @@ form td:last-child {
 form * {
   font-size: 12px;
 }
+
+.modal-dialog {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) !important;
+}

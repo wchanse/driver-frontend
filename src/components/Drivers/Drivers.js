@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row } from 'react-bootstrap';
+import { Container, Row, Button, Modal, Form } from 'react-bootstrap';
 import { nanoid } from 'nanoid';
 import '../style.css';
 import './drivers.css';
@@ -8,6 +8,10 @@ import ReadOnlyRow from './ReadOnlyRow';
 import EditableRow from './EditableRow';
 
 const Drivers = () => {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   const [drivers, setDrivers] = useState([]);
   const [addFormData, setAddFormData] = useState({
     firstName: '',
@@ -80,6 +84,7 @@ const Drivers = () => {
       setDrivers(newDrivers);
     };
     postDriver();
+    setShow(false);
   };
 
   const handleEditFormSubmit = (event) => {
@@ -144,6 +149,89 @@ const Drivers = () => {
         <Row>
           <div className="page">
             <h1 className="heading">Drivers</h1>
+            <div className="row">
+              <div className="text-right">
+                <>
+                  <Button
+                    variant="primary"
+                    onClick={handleShow}
+                    className="mb-3"
+                  >
+                    Add Driver
+                  </Button>
+
+                  <Modal show={show} onHide={handleClose}>
+                    <Modal.Header>
+                      <Modal.Title>Add Driver</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <form onSubmit={handleAddFormSubmit}>
+                        <Form.Group className="mb-3">
+                          <input
+                            type="text"
+                            name="firstName"
+                            required="required"
+                            placeholder="Enter first name"
+                            className="form-control"
+                            onChange={handleAddFormChange}
+                          />
+                          <input
+                            type="text"
+                            name="lastName"
+                            required="required"
+                            placeholder="Enter last name"
+                            className="form-control"
+                            onChange={handleAddFormChange}
+                          />
+
+                          <input
+                            type="text"
+                            name="city"
+                            required="required"
+                            placeholder="Enter city"
+                            className="form-control"
+                            onChange={handleAddFormChange}
+                          />
+                          <input
+                            type="text"
+                            name="state"
+                            required="required"
+                            placeholder="Enter state"
+                            className="form-control"
+                            onChange={handleAddFormChange}
+                          />
+                          <input
+                            type="text"
+                            name="zip"
+                            required="required"
+                            placeholder="Enter zip"
+                            className="form-control"
+                            onChange={handleAddFormChange}
+                          />
+                          <input
+                            type="text"
+                            name="licenseNumber"
+                            required="required"
+                            placeholder="Enter license no."
+                            className="form-control"
+                            onChange={handleAddFormChange}
+                          />
+                          {/* <button type="submit">Add</button> */}
+                        </Form.Group>
+                      </form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button variant="secondary" onClick={handleClose}>
+                        Close
+                      </Button>
+                      <Button variant="primary" onClick={handleAddFormSubmit}>
+                        Save Changes
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
+                </>
+              </div>
+            </div>
             <form onSubmit={handleEditFormSubmit}>
               <table>
                 <thead>
@@ -155,6 +243,7 @@ const Drivers = () => {
                     <th>Zip</th>
                     <th>License No.</th>
                     <th>Actions</th>
+                    <th>Report</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -178,53 +267,6 @@ const Drivers = () => {
                   ))}
                 </tbody>
               </table>
-            </form>
-
-            <h2 className="mt-3">Add a Driver</h2>
-            <form onSubmit={handleAddFormSubmit}>
-              <input
-                type="text"
-                name="firstName"
-                required="required"
-                placeholder="Enter first name"
-                onChange={handleAddFormChange}
-              />
-              <input
-                type="text"
-                name="lastName"
-                required="required"
-                placeholder="Enter last name"
-                onChange={handleAddFormChange}
-              />
-              <input
-                type="text"
-                name="city"
-                required="required"
-                placeholder="Enter city"
-                onChange={handleAddFormChange}
-              />
-              <input
-                type="text"
-                name="state"
-                required="required"
-                placeholder="Enter state"
-                onChange={handleAddFormChange}
-              />
-              <input
-                type="text"
-                name="zip"
-                required="required"
-                placeholder="Enter zip"
-                onChange={handleAddFormChange}
-              />
-              <input
-                type="text"
-                name="licenseNumber"
-                required="required"
-                placeholder="Enter license no."
-                onChange={handleAddFormChange}
-              />
-              <button type="submit">Add</button>
             </form>
           </div>
         </Row>

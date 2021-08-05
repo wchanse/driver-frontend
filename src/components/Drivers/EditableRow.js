@@ -72,6 +72,7 @@ const EditableRow = ({
         <button type="button" onClick={() => setEditDriverId(null)}>
           Cancel
         </button>
+        <button>Delete</button>
       </td>
     </tr>
   );

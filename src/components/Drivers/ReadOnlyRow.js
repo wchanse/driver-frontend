@@ -1,5 +1,5 @@
-import React from "react";
-import { DriverRow } from "./style";
+import React from 'react';
+import { DriverRow } from './style';
 
 const ReadOnlyRow = ({ driver, handleEditClick, setEditDriverId }) => {
   return (
@@ -11,10 +11,7 @@ const ReadOnlyRow = ({ driver, handleEditClick, setEditDriverId }) => {
       <td>{driver.zip}</td>
       <td>{driver.licenseNumber}</td>
       <td>
-        <button
-          type="button"
-          onClick={(event) => handleEditClick(event, driver)}
-        >
+        <button onClick={(event) => handleEditClick(event, driver)}>
           Edit
         </button>
       </td>
