@@ -41,7 +41,7 @@ const Search = () => {
         </Row>
 
         <Row>
-          {!loading && driver ? (
+          {!loading && driver != null ? (
             <div>
               <DriverName>
                 {driver.firstName} {driver.lastName}
