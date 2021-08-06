@@ -1,6 +1,7 @@
-import React from 'react';
-import { Navbar, Container, Nav } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
+import React from "react";
+import { Navbar, Container, Nav } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
+import Logo from "../../assets/images/logo.png";
 
 const Header = () => {
   return (
@@ -9,12 +10,11 @@ const Header = () => {
         <LinkContainer to="/">
           <Navbar.Brand href="#home">
             <img
-              style={{ marginRight: '3' }}
-              src={'logo.png'}
+              style={{ marginRight: "3" }}
+              src={Logo}
               alt="logo"
               height="36"
             />
-            {'  '}
             Driver MVR
           </Navbar.Brand>
         </LinkContainer>
