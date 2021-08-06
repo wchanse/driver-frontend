@@ -78,9 +78,12 @@ function DriverDetail(props) {
   };
 
   const handleAddFormSubmit = async () => {
-    await driverapi.post(`/drivers/${driverId}/violations`, addFormData);
+    const { data } = await driverapi.post(
+      `/drivers/${driverId}/violations`,
+      addFormData
+    );
     setShow(false);
-    setValue((value) => value + 1);
+    setViolations(data.violationsDto);
   };
 
   return (
