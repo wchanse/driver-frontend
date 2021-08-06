@@ -1,12 +1,11 @@
-import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Header from "./Header/Header";
-import Drivers from "./Drivers/Drivers";
-import DriverDetail from "../pages/Driver/DriverDetail";
-import Search from "./Search/Search";
-import LandingPage from "./LandingPage/LandingPage";
-import NotFound from "../pages/BadRequests/NotFound";
-import Report from "./Report/Report";
+import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Header from './Header/Header';
+import Drivers from './Drivers/Drivers';
+import DriverDetail from '../pages/Driver/DriverDetail';
+import Search from './Search/Search';
+import LandingPage from './LandingPage/LandingPage';
+import NotFound from '../pages/BadRequests/NotFound';
 
 const App = () => {
   return (
@@ -21,7 +20,6 @@ const App = () => {
           path="/drivers/:driverId"
           component={DriverDetail}
         />
-        <Route path="/report" component={Report} />
         <Route component={NotFound} />
       </Switch>
     </BrowserRouter>
