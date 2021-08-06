@@ -1,34 +1,55 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { DriverRow } from './style';
+import React from "react";
+import { Link } from "react-router-dom";
+import { ActionButton, DriverRow } from "./style";
+import TableCell from "@material-ui/core/TableCell";
+import TableRow from "@material-ui/core/TableRow";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
+
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);
+
+const StyledTableRow = withStyles((theme) => ({
+  root: {
+    "&:nth-of-type(odd)": {
+      backgroundColor: theme.palette.action.hover,
+    },
+  },
+}))(TableRow);
 
 const ReadOnlyRow = ({ driver, handleEditClick, setEditDriverId }) => {
   return (
-    <DriverRow key={driver.id}>
-      <td>{driver.firstName}</td>
-      <td>{driver.lastName}</td>
-      <td>{driver.city}</td>
-      <td>{driver.state}</td>
-      <td>{driver.zip}</td>
-      <td>{driver.licenseNumber}</td>
-      <td>{driver.age}</td>
-      <td>{driver.gender}</td>
-      <td>
-        <button onClick={(event) => handleEditClick(event, driver)}>
+    <StyledTableRow key={driver.id}>
+      <StyledTableCell component="th" scope="row">
+        {driver.firstName}
+      </StyledTableCell>
+      <StyledTableCell align="right">{driver.lastName}</StyledTableCell>
+      <StyledTableCell align="right">{driver.city}</StyledTableCell>
+      <StyledTableCell align="right">{driver.state}</StyledTableCell>
+      <StyledTableCell align="right">{driver.zip}</StyledTableCell>
+      <StyledTableCell align="right">{driver.licenseNumber}</StyledTableCell>
+      <StyledTableCell align="right">{driver.age}</StyledTableCell>
+      <StyledTableCell align="right">{driver.gender}</StyledTableCell>
+      <StyledTableCell align="center">
+        <ActionButton onClick={(event) => handleEditClick(event, driver)}>
           Edit
-        </button>
-      </td>
-      <td>
+        </ActionButton>
         <Link to={`/drivers/${driver.id}`}>
-          <button
+          <ActionButton
             type="button"
             // onClick={(event) => handleEditClick(event, driver)}
           >
             View
-          </button>
+          </ActionButton>
         </Link>
-      </td>
-    </DriverRow>
+      </StyledTableCell>
+    </StyledTableRow>
   );
 };
 

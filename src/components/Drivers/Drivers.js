@@ -1,13 +1,33 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Row, Button, Modal, Form } from 'react-bootstrap';
-import { nanoid } from 'nanoid';
-import '../style.css';
-import './drivers.css';
-import driverapi from '../../api/driverapi';
-import ReadOnlyRow from './ReadOnlyRow';
-import EditableRow from './EditableRow';
-import { connect, useDispatch } from 'react-redux';
-import { addDriver } from '../../redux/actions';
+import React, { useState, useEffect } from "react";
+import { Container, Row, Button, Modal, Form } from "react-bootstrap";
+import { nanoid } from "nanoid";
+import "../style.css";
+import "./drivers.css";
+import driverapi from "../../api/driverapi";
+import ReadOnlyRow from "./ReadOnlyRow";
+import EditableRow from "./EditableRow";
+import { connect, useDispatch } from "react-redux";
+import { addDriver } from "../../redux/actions";
+import { TableHeader } from "./style";
+
+import { withStyles, makeStyles } from "@material-ui/core/styles";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);
 
 const Drivers = (props) => {
   // for add driver modal
@@ -19,26 +39,26 @@ const Drivers = (props) => {
 
   const [drivers, setDrivers] = useState([]);
   const [addFormData, setAddFormData] = useState({
-    firstName: '',
-    lastName: '',
-    city: '',
-    state: '',
-    zip: '',
-    licenseNumber: '',
+    firstName: "",
+    lastName: "",
+    city: "",
+    state: "",
+    zip: "",
+    licenseNumber: "",
     age: 0,
-    gender: '',
+    gender: "",
   });
 
   const [editFormData, setEditFormData] = useState({
-    id: '',
-    firstName: '',
-    lastName: '',
-    city: '',
-    state: '',
-    zip: '',
-    licenseNumber: '',
+    id: "",
+    firstName: "",
+    lastName: "",
+    city: "",
+    state: "",
+    zip: "",
+    licenseNumber: "",
     age: 0,
-    gender: '',
+    gender: "",
   });
 
   // when editDriverId is null, no row is being edited
@@ -47,7 +67,7 @@ const Drivers = (props) => {
   const handleAddFormChange = (event) => {
     event.preventDefault();
 
-    const fieldName = event.target.getAttribute('name');
+    const fieldName = event.target.getAttribute("name");
     const fieldValue = event.target.value;
 
     // make copy of old data to avoid mutating the state
@@ -61,7 +81,7 @@ const Drivers = (props) => {
   const handleEditFormChange = (event) => {
     event.preventDefault();
 
-    const fieldName = event.target.getAttribute('name');
+    const fieldName = event.target.getAttribute("name");
     const fieldValue = event.target.value;
 
     const newFormData = { ...editFormData };
@@ -87,7 +107,7 @@ const Drivers = (props) => {
 
     // send data
     const postDriver = async () => {
-      const { data } = await driverapi.post('/drivers', newDriver);
+      const { data } = await driverapi.post("/drivers", newDriver);
       // add response to state
       // dispatch({ type: "ADD_DRIVER", payload: newDriver });
       props.onAddDriver(newDriver);
@@ -160,7 +180,7 @@ const Drivers = (props) => {
 
   useEffect(() => {
     const search = async () => {
-      const { data } = await driverapi.get('/drivers');
+      const { data } = await driverapi.get("/drivers");
       setDrivers(data);
       console.log(data);
     };
@@ -168,9 +188,17 @@ const Drivers = (props) => {
     console.log(drivers);
   }, []);
 
+  const useStyles = makeStyles({
+    table: {
+      minWidth: 700,
+    },
+  });
+
+  const classes = useStyles();
+
   return (
     <div className="maincontent">
-      <Container>
+      <Container fluid>
         <Row>
           <div className="page">
             <h1 className="heading">Drivers</h1>
@@ -277,23 +305,29 @@ const Drivers = (props) => {
                 </>
               </div>
             </div>
-            <form onSubmit={handleEditFormSubmit}>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Firstname</th>
-                    <th>Lastname</th>
-                    <th>City</th>
-                    <th>State</th>
-                    <th>Zip</th>
-                    <th>License No.</th>
-                    <th>Age</th>
-                    <th>Gender</th>
-                    <th>Actions</th>
-                    <th>Details</th>
-                  </tr>
-                </thead>
-                <tbody>
+
+            <TableContainer component={Paper}>
+              <Table className={classes.table} aria-label="customized table">
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell>Firstname</StyledTableCell>
+                    <StyledTableCell align="right">Lastname</StyledTableCell>
+                    <StyledTableCell align="right">City</StyledTableCell>
+                    <StyledTableCell align="right">State</StyledTableCell>
+                    <StyledTableCell align="right">Zip</StyledTableCell>
+                    <StyledTableCell align="right">License No.</StyledTableCell>
+                    <StyledTableCell align="right">Age</StyledTableCell>
+                    <StyledTableCell align="right">Gender</StyledTableCell>
+                    <StyledTableCell
+                      style={{ alignItems: "center" }}
+                      width={300}
+                      align="center"
+                    >
+                      Actions
+                    </StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
                   {drivers.map((driver) => (
                     <React.Fragment>
                       {editDriverId === driver.id ? (
@@ -314,9 +348,49 @@ const Drivers = (props) => {
                       )}
                     </React.Fragment>
                   ))}
-                </tbody>
-              </table>
-            </form>
+                </TableBody>
+              </Table>
+            </TableContainer>
+            {/* <table>
+              <TableHeader>
+                <thead>
+                  <tr>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Zip</th>
+                    <th>License No.</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Actions</th>
+                    <th>Details</th>
+                  </tr>
+                </thead>
+              </TableHeader>
+              <tbody>
+                {drivers.map((driver) => (
+                  <React.Fragment>
+                    {editDriverId === driver.id ? (
+                      <EditableRow
+                        key={nanoid}
+                        editFormData={editFormData}
+                        handleEditFormChange={handleEditFormChange}
+                        setEditDriverId={setEditDriverId}
+                        handleDelete={handleDelete}
+                        driverObj={driver}
+                      />
+                    ) : (
+                      <ReadOnlyRow
+                        key={driver.id}
+                        driver={driver}
+                        handleEditClick={handleEditClick}
+                      />
+                    )}
+                  </React.Fragment>
+                ))}
+              </tbody>
+            </table> */}
           </div>
         </Row>
       </Container>
