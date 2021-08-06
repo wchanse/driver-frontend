@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Navbar, Container, Nav } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -9,10 +10,13 @@ const Header = () => {
         <LinkContainer to="/">
           <Navbar.Brand href="#home">
             <img
-              src={'https://placeholder.pics/svg/150x50/888888/EEE/Logo'}
+              style={{ marginRight: '3' }}
+              src={'logo.png'}
               alt="logo"
               height="36"
             />
+            {'  '}
+            Driver MVR
           </Navbar.Brand>
         </LinkContainer>
         <Nav className="mr-auto">

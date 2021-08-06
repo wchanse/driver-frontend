@@ -2,7 +2,7 @@
   min-height: 93vh;
   display: flex;
   align-items: center;
-  background-image: url('../assets/driver.jpeg');
+  background-image: url('driver.jpeg');
   background-position: center;
   background-size: cover;
 }
@@ -10,6 +10,7 @@
 .title {
   font-size: 40px;
   color: burlywood;
+  font-weight: bold;
 }
 
 .subtitle {
