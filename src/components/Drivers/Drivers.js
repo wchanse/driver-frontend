@@ -305,52 +305,51 @@ const Drivers = (props) => {
                 </>
               </div>
             </div>
-
-            <TableContainer component={Paper}>
-              <Table className={classes.table} aria-label="customized table">
-                <TableHead>
-                  <TableRow>
-                    <StyledTableCell>Firstname</StyledTableCell>
-                    <StyledTableCell align="right">Lastname</StyledTableCell>
-                    <StyledTableCell align="right">City</StyledTableCell>
-                    <StyledTableCell align="right">State</StyledTableCell>
-                    <StyledTableCell align="right">Zip</StyledTableCell>
-                    <StyledTableCell align="right">License No.</StyledTableCell>
-                    <StyledTableCell align="right">Age</StyledTableCell>
-                    <StyledTableCell align="right">Gender</StyledTableCell>
-                    <StyledTableCell
-                      style={{ alignItems: "center" }}
-                      width={300}
-                      align="center"
-                    >
-                      Actions
-                    </StyledTableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {drivers.map((driver) => (
-                    <React.Fragment>
-                      {editDriverId === driver.id ? (
-                        <EditableRow
-                          key={nanoid}
-                          editFormData={editFormData}
-                          handleEditFormChange={handleEditFormChange}
-                          setEditDriverId={setEditDriverId}
-                          handleDelete={handleDelete}
-                          driverObj={driver}
-                        />
-                      ) : (
-                        <ReadOnlyRow
-                          key={driver.id}
-                          driver={driver}
-                          handleEditClick={handleEditClick}
-                        />
-                      )}
-                    </React.Fragment>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+            <form onSubmit={handleEditFormSubmit}>
+              <TableContainer component={Paper}>
+                <Table className={classes.table} aria-label="customized table">
+                  <TableHead>
+                    <TableRow>
+                      <StyledTableCell>Firstname</StyledTableCell>
+                      <StyledTableCell align="right">Lastname</StyledTableCell>
+                      <StyledTableCell align="right">City</StyledTableCell>
+                      <StyledTableCell align="right">State</StyledTableCell>
+                      <StyledTableCell align="right">Zip</StyledTableCell>
+                      <StyledTableCell align="right">
+                        License No.
+                      </StyledTableCell>
+                      <StyledTableCell align="right">Age</StyledTableCell>
+                      <StyledTableCell align="right">Gender</StyledTableCell>
+                      <StyledTableCell width={300} align="center">
+                        Actions
+                      </StyledTableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {drivers.map((driver) => (
+                      <React.Fragment>
+                        {editDriverId === driver.id ? (
+                          <EditableRow
+                            key={nanoid}
+                            editFormData={editFormData}
+                            handleEditFormChange={handleEditFormChange}
+                            setEditDriverId={setEditDriverId}
+                            handleDelete={handleDelete}
+                            driverObj={driver}
+                          />
+                        ) : (
+                          <ReadOnlyRow
+                            key={driver.id}
+                            driver={driver}
+                            handleEditClick={handleEditClick}
+                          />
+                        )}
+                      </React.Fragment>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </form>
             {/* <table>
               <TableHeader>
                 <thead>
