@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import {
   Container,
   Row,
@@ -7,12 +7,12 @@ import {
   Button,
   Modal,
   Form,
-} from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
-import driverapi from '../../api/driverapi';
-import { DriverInfo } from '../../components/Search/style';
-import './DriverDetail.css';
+} from "react-bootstrap";
+import { useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import driverapi from "../../api/driverapi";
+import { DriverInfo } from "../../components/Search/style";
+import "./DriverDetail.css";
 import {
   AddButton,
   DeleteButton,
@@ -21,7 +21,7 @@ import {
   InfoContainer,
   InfoRow,
   Wrapper,
-} from './style';
+} from "./style";
 
 function DriverDetail(props) {
   const { driverId } = useParams();
@@ -29,8 +29,8 @@ function DriverDetail(props) {
   const [violations, setViolations] = useState([]);
 
   const [addFormData, setAddFormData] = useState({
-    description: '',
-    violationType: '',
+    description: "",
+    violationType: "",
   });
 
   const [value, setValue] = useState(0); // integer state for forceUpdate
@@ -67,7 +67,7 @@ function DriverDetail(props) {
   const handleAddFormChange = (event) => {
     event.preventDefault();
 
-    const fieldName = event.target.getAttribute('name');
+    const fieldName = event.target.getAttribute("name");
     const fieldValue = event.target.value;
 
     // make copy of old data to avoid mutating the state
@@ -92,7 +92,7 @@ function DriverDetail(props) {
       <Container className="mt-5">
         <h1>Driver</h1>
         <Row>
-          <Card border="light" style={{ width: '30rem' }}>
+          <Card border="light" style={{ width: "30rem" }}>
             <Card.Body>
               <Card.Title>
                 <DriverNameTitle>
@@ -104,11 +104,9 @@ function DriverDetail(props) {
                   <InfoRow>
                     <DriverDetailItem>
                       {driver.city}
-                      {', '}
+                      {", "}
                       {driver.state} {driver.zip}
                     </DriverDetailItem>
-                    {/* <DriverDetailItem>{driver.state}</DriverDetailItem>
-                    <DriverDetailItem>{driver.zip}</DriverDetailItem> */}
                   </InfoRow>
                   <InfoRow>
                     <DriverDetailItem>{driver.age}</DriverDetailItem>
