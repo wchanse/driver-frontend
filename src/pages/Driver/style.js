@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const DriverNameTitle = styled.h2`
   font-size: 30px;
@@ -20,29 +20,30 @@ export const InfoContainer = styled.div`
 export const InfoRow = styled.div`
   display: flex;
   flex-direction: row;
-  border: 1px solid red;
 `;
 
 export const DeleteButton = styled.button`
+  background-color: white;
   height: 40px;
   width: 100px;
   border: none;
   border-radius: 15px;
-  box-shadow: 2px 3px 3px 2px #333;
+  box-shadow: 0px 0px 5px 0px grey;
   &:hover {
-    background-color: red;
+    background-color: #c73e1d;
     color: white;
   }
 `;
 
 export const AddButton = styled.button`
+  background-color: white;
   height: 40px;
   width: 100px;
   border: none;
   border-radius: 15px;
-  box-shadow: 2px 3px 3px 2px #333;
+  box-shadow: 0px 0px 5px 0px grey;
   &:hover {
-    background-color: green;
+    background-color: #2f9c95;
     color: white;
   }
 `;
