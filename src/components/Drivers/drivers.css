@@ -40,9 +40,7 @@ form * {
   font-size: 12px;
 }
 
-.modal-dialog {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) !important;
+.my-modal {
+  width: 23vw;
+  max-width: 23vw;
 }

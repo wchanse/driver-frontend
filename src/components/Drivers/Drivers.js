@@ -1,39 +1,44 @@
-import React, { useState, useEffect } from "react";
-import { Container, Row, Button, Modal, Form } from "react-bootstrap";
-import { nanoid } from "nanoid";
-import "../style.css";
-import "./drivers.css";
-import driverapi from "../../api/driverapi";
-import ReadOnlyRow from "./ReadOnlyRow";
-import EditableRow from "./EditableRow";
-import { connect, useDispatch } from "react-redux";
-import { addDriver } from "../../redux/actions";
+import React, { useState, useEffect } from 'react';
+import { Container, Row, Button, Modal, Form } from 'react-bootstrap';
+import { nanoid } from 'nanoid';
+import '../style.css';
+import './drivers.css';
+import driverapi from '../../api/driverapi';
+import ReadOnlyRow from './ReadOnlyRow';
+import EditableRow from './EditableRow';
+import { connect, useDispatch } from 'react-redux';
+import { addDriver } from '../../redux/actions';
 
 const Drivers = (props) => {
   // for add driver modal
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
   const dispatch = useDispatch();
 
   const [drivers, setDrivers] = useState([]);
   const [addFormData, setAddFormData] = useState({
-    firstName: "",
-    lastName: "",
-    city: "",
-    state: "",
-    zip: "",
-    licenseNumber: "",
+    firstName: '',
+    lastName: '',
+    city: '',
+    state: '',
+    zip: '',
+    licenseNumber: '',
+    age: 0,
+    gender: '',
   });
 
   const [editFormData, setEditFormData] = useState({
-    id: "",
-    firstName: "",
-    lastName: "",
-    city: "",
-    state: "",
-    zip: "",
-    licenseNumber: "",
+    id: '',
+    firstName: '',
+    lastName: '',
+    city: '',
+    state: '',
+    zip: '',
+    licenseNumber: '',
+    age: 0,
+    gender: '',
   });
 
   // when editDriverId is null, no row is being edited
@@ -42,7 +47,7 @@ const Drivers = (props) => {
   const handleAddFormChange = (event) => {
     event.preventDefault();
 
-    const fieldName = event.target.getAttribute("name");
+    const fieldName = event.target.getAttribute('name');
     const fieldValue = event.target.value;
 
     // make copy of old data to avoid mutating the state
@@ -56,7 +61,7 @@ const Drivers = (props) => {
   const handleEditFormChange = (event) => {
     event.preventDefault();
 
-    const fieldName = event.target.getAttribute("name");
+    const fieldName = event.target.getAttribute('name');
     const fieldValue = event.target.value;
 
     const newFormData = { ...editFormData };
@@ -76,11 +81,13 @@ const Drivers = (props) => {
       state: addFormData.state,
       zip: addFormData.zip,
       licenseNumber: addFormData.licenseNumber,
+      age: addFormData.age,
+      gender: addFormData.gender,
     };
 
     // send data
     const postDriver = async () => {
-      const { data } = await driverapi.post("/drivers", newDriver);
+      const { data } = await driverapi.post('/drivers', newDriver);
       // add response to state
       // dispatch({ type: "ADD_DRIVER", payload: newDriver });
       props.onAddDriver(newDriver);
@@ -112,6 +119,8 @@ const Drivers = (props) => {
       state: editFormData.state,
       zip: editFormData.zip,
       licenseNumber: editFormData.licenseNumber,
+      age: editFormData.age,
+      gender: editFormData.gender,
     };
 
     // send data
@@ -142,6 +151,8 @@ const Drivers = (props) => {
       state: driver.state,
       zip: driver.zip,
       licenseNumber: driver.licenseNumber,
+      age: driver.age,
+      gender: driver.gender,
     };
 
     setEditFormData(formValues);
@@ -149,7 +160,7 @@ const Drivers = (props) => {
 
   useEffect(() => {
     const search = async () => {
-      const { data } = await driverapi.get("/drivers");
+      const { data } = await driverapi.get('/drivers');
       setDrivers(data);
       console.log(data);
     };
@@ -174,13 +185,18 @@ const Drivers = (props) => {
                     Add Driver
                   </Button>
 
-                  <Modal show={show} onHide={handleClose}>
+                  <Modal
+                    show={show}
+                    onHide={handleClose}
+                    dialogClassName="my-modal"
+                  >
                     <Modal.Header>
                       <Modal.Title>Add Driver</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                       <form onSubmit={handleAddFormSubmit}>
                         <Form.Group className="mb-3">
+                          <Form.Label>First name</Form.Label>
                           <input
                             type="text"
                             name="firstName"
@@ -189,6 +205,7 @@ const Drivers = (props) => {
                             className="form-control"
                             onChange={handleAddFormChange}
                           />
+                          <Form.Label>Last name</Form.Label>
                           <input
                             type="text"
                             name="lastName"
@@ -197,7 +214,7 @@ const Drivers = (props) => {
                             className="form-control"
                             onChange={handleAddFormChange}
                           />
-
+                          <Form.Label>City</Form.Label>
                           <input
                             type="text"
                             name="city"
@@ -205,6 +222,7 @@ const Drivers = (props) => {
                             className="form-control"
                             onChange={handleAddFormChange}
                           />
+                          <Form.Label>State</Form.Label>
                           <input
                             type="text"
                             name="state"
@@ -212,6 +230,7 @@ const Drivers = (props) => {
                             className="form-control"
                             onChange={handleAddFormChange}
                           />
+                          <Form.Label>Zip</Form.Label>
                           <input
                             type="text"
                             name="zip"
@@ -219,6 +238,7 @@ const Drivers = (props) => {
                             className="form-control"
                             onChange={handleAddFormChange}
                           />
+                          <Form.Label>License number</Form.Label>
                           <input
                             type="text"
                             name="licenseNumber"
@@ -226,7 +246,22 @@ const Drivers = (props) => {
                             className="form-control"
                             onChange={handleAddFormChange}
                           />
-                          {/* <button type="submit">Add</button> */}
+                          <Form.Label>Age</Form.Label>
+                          <input
+                            type="number"
+                            name="age"
+                            placeholder="Enter age"
+                            className="form-control"
+                            onChange={handleAddFormChange}
+                          />
+                          <Form.Label>Gender</Form.Label>
+                          <input
+                            type="text"
+                            name="gender"
+                            placeholder="Enter gender"
+                            className="form-control"
+                            onChange={handleAddFormChange}
+                          />
                         </Form.Group>
                       </form>
                     </Modal.Body>
@@ -252,6 +287,8 @@ const Drivers = (props) => {
                     <th>State</th>
                     <th>Zip</th>
                     <th>License No.</th>
+                    <th>Age</th>
+                    <th>Gender</th>
                     <th>Actions</th>
                     <th>Details</th>
                   </tr>

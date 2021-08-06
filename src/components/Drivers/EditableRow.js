@@ -65,6 +65,24 @@ const EditableRow = ({
         />
       </td>
       <td>
+        <input
+          type="number"
+          name="age"
+          placeholder="Enter age"
+          value={editFormData.age}
+          onChange={handleEditFormChange}
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          name="gender"
+          placeholder="Enter gender"
+          value={editFormData.gender}
+          onChange={handleEditFormChange}
+        />
+      </td>
+      <td>
         <button type="submit">Save</button>
         <button onClick={() => setEditDriverId(null)}>Cancel</button>
         <button onClick={() => handleDelete(driverObj)}>Delete</button>
